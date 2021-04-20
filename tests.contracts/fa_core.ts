@@ -8,6 +8,8 @@ let alice_account: TezosToolkit, bob_account: TezosToolkit;
 let FA2_ADDR: string;
 
 before(async function () {
+
+
   alice_account = await getSignerFactory(rpc, accounts.alice.sk);
   alice_account.setProvider({
     config: { confirmationPollingIntervalSecond: 1 },
@@ -16,6 +18,8 @@ before(async function () {
   bob_account.setProvider({ config: { confirmationPollingIntervalSecond: 1 } }); // Needed on flextesa
   FA2_ADDR = getContractAddressFromBuild("FA2_multi_assets");
   console.log(`@FA2 : ${FA2_ADDR} `);
+
+  
 });
 
 

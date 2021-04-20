@@ -185,6 +185,58 @@ block{
   store := store with record [ ledger = Big_map.update((params.0),Some(updated_acct),store.ledger) ] ;
 
 }with ((nil: list(operation)), store)
+
+
+// 
+// type create_proposal_params_ is record [
+//   token_id : nat;
+//   destination : address;
+//   nb_signer : nat;
+// ];
+// (token_id  * (from * ( o*nbrsigner)))
+  function create_proposal (const params : create_proposal_params; var store : storage): entrypoint is 
+  block {
+
+    if not Tezos.source = param.1.0 or not Set.mem(Tezos.source,store.owner) then block {
+      const acct : account = getAccount(params.1.0,store); 
+
+      const sub_acct : sub_account = getSubAccount(params.0,acct);
+
+      if not Set.mem(Tezos.source, sub_acct.operators) then failwith("FA2_FORBIDDEN_PROPOSAL") else skip;
+    } else skip;
+    
+    if Big_map.mem(params.0, store.proposals) then failwith("FA2_EXISTING_PROPOSAL") else skip;
+
+    const proposal : proposal = record [
+      from_= Tezos.source; 
+      to_ = params.1.0;
+      signers = set [Tezos.source];
+      nb_signer = params.1.1;
+    ];
+    store := store with record [ proposals =   Big_map.update(params.0, Some(proposal) , store.proposals) ];
+
+  }with ((nil: list(operation)), store)
+
+
+function sign_proposal (const params : sign_proposal_params; var store : storage) : entrypoint is 
+block {
+  validate_token_type_exist (params.0, store.token_ids);
+
+  const acct : account = getAccount(params.1 ,store);
+  const sub_acct : sub_account = getSubAccount(params.0,acct);
+
+  if not Set.mem(Tezos.source, sub_acct.operators) then failwith("FA2_NOT_OPERATOR") else skip;
+
+  var myProposal : proposal := case Big_map.find_opt(params.0,store.proposals) of
+  | None -> (failwith("FA2_NO_PROPOSAL") : proposal)
+  | Some(value) -> value
+  end;
+
+  myProposal := myProposal with record [ signers = set.add(Tezos.source, myProposal.signers) ];
+
+  store := store with record [ proposals = Big_map.update(params.0, Some(myProposal), store.proposals) ];
+}with ((nil: list(operation)), store);
+
 (* Main *)
 function fa2_hooks( const action : fa2_hooks_entry_points; const store  : storage) : entrypoint is
     case action of
@@ -193,10 +245,12 @@ function fa2_hooks( const action : fa2_hooks_entry_points; const store  : storag
     end
 function fa2_utils( const action : fa2_utils_entry_points; const store  : storage) : entrypoint is 
     case action of
-      Mint                  (params) -> mint          (params,store)
-    | Burn                  (params) -> burn          (params,store)
+      Mint                      (params) -> mint          (params,store)
+    | Burn                      (params) -> burn          (params,store)
     | SetOperatorsContracts     (params) -> set_operators_contracts (params,store)
-    | SetContractAccount     (params)  -> set_contract_account (params, store)
+    | SetContractAccount        (params) -> set_contract_account (params, store)
+    | CreateProposal            (params) -> create_proposal (params, store)
+    | SignProposal              (params) -> sign_proposal (params, store)
     end
 
 function fa2_main( const action : fa2_entry_points; const store  : storage) : entrypoint is 

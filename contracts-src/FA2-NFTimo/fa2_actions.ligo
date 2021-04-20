@@ -2,11 +2,14 @@
 #define FA2_ACTIONS
 #include "fa2_interfaces.ligo"
 
+
 type fa2_utils_entry_points is 
 | Mint of mint_params
 | Burn of burn_params
 | SetOperatorsContracts of set_operator_contract_params
 | SetContractAccount of operator_param
+| CreateProposal of create_proposal_params
+| SignProposal of sign_proposal_params
 
 type fa2_entry_points is
   Transfer                of transfer_params

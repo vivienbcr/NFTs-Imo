@@ -127,4 +127,19 @@ type set_contract_account_params_ is record [
   operator_params : operator_param_act_;
 ] ;
 
+
+type create_proposal_params_ is record [
+  token_id : nat;
+  to_ : address;
+  from_ : address;
+  nb_signer : nat;
+];
+type create_proposal_params is michelson_pair_right_comb(create_proposal_params_);
+
+type sign_proposal_params_ is record [
+  token_id : nat;
+  from_: address;
+];
+type sign_proposal_params is michelson_pair_right_comb(sign_proposal_params_);
+
 #endif

@@ -18,6 +18,12 @@ type token_info is record[
   token_id : nat;
   token_info : info_map
 ]
+type proposal is record [
+  to_ : address;
+  from_ : address;
+  signers : set(address);
+  nb_signer : nat;
+]
 
 type storage is record [
   ledger              : ledger;
@@ -25,7 +31,10 @@ type storage is record [
   token_ids           : set(token_id);
   token_metadata      : big_map(nat,token_info);
   metadata            : big_map(string,bytes);
-  operators_contracts :  set(address);
+  operators_contracts : set(address);
+  proposals           : big_map(token_id, proposal);
+
+
 ]
 type entrypoint is list (operation) * storage;
 #endif
