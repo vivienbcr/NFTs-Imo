@@ -1,6 +1,6 @@
 import { TezosToolkit } from '@taquito/taquito';
-import { importKey , InMemorySigner} from '@taquito/signer';
-
+// import { importKey , InMemorySigner} from '@taquito/signer';
+import {  InMemorySigner} from '@taquito/signer';
 // const FAUCET_KEY = require("./../../faucet.json")
 
 // export async function getSignerFaucet (rpcUrl : string):Promise<TezosToolkit>{

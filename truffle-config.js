@@ -8,13 +8,13 @@ module.exports = {
   networks: {
     development: {
       host: "http://localhost",
-      port: 20000,
+      port: 8732,
       network_id: "*",
-      secretKey:"edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq",
-      type:"tezos"
+      secretKey: alice.sk,
+      type: "tezos",
     },
     edonet: {
-      host: "https://api.tez.ie/rpc/edonet",
+      host: "https://edonet.smartpy.io",
       port: 443,
       network_id: "*",
       secret,

@@ -1,5 +1,5 @@
 const { MichelsonMap } = require("@taquito/taquito");
-const FA2contract = artifacts.require("contracts/FA2_multi_asset");
+const FA2contract = artifacts.require("contracts/FA2_multi_assets");
 const accounts = require("../scripts/sandbox/accounts");
 const { encode_to_bytes_hex_format } = require("./../js-helper/encode_to_bytes_hex_format")
 
@@ -25,15 +25,15 @@ const ledger = MichelsonMap.fromLiteral({
   [accounts.tabbie.pkh]: tabbie_account,
 });
 
-// const token_0_meta = "https://tezos-contract-metas.s3-eu-west-1.amazonaws.com/token_0_metadata.json";
-const token_0_meta = require("./../metadatas/token_0_metadata.json")
+const token_0_meta = "https://tezos-contract-metas.s3-eu-west-1.amazonaws.com/token_0_metadata.json";
+// const token_0_meta = require("./../metadatas/token_0_metadata.json")
 const token_0_meta_ex = encode_to_bytes_hex_format(JSON.stringify(token_0_meta))
-const token_infos_ = MichelsonMap.fromLiteral({"aze" :token_0_meta_ex})
+const token_infos_ = MichelsonMap.fromLiteral({"" :token_0_meta_ex})
 
-// const token_1_meta = "https://tezos-contract-metas.s3-eu-west-1.amazonaws.com/token_1_metadata.json";
-const token_1_meta = require("./../metadatas/token_1_metadata.json")
+const token_1_meta = "https://tezos-contract-metas.s3-eu-west-1.amazonaws.com/token_1_metadata.json";
+// const token_1_meta = require("./../metadatas/token_1_metadata.json")
 const token_1_meta_ex = encode_to_bytes_hex_format(JSON.stringify(token_1_meta))
-const token_infos_1 = MichelsonMap.fromLiteral({"aze" :token_1_meta_ex})
+const token_infos_1 = MichelsonMap.fromLiteral({"" :token_1_meta_ex})
 
 const token_meta = MichelsonMap.fromLiteral({
   0: { token_id: 0n, token_info: token_infos_ },
@@ -43,7 +43,7 @@ const meta = "https://tezos-contract-metas.s3-eu-west-1.amazonaws.com/metadata.j
 const metahex = encode_to_bytes_hex_format(meta)
 
 const metadata_ = MichelsonMap.fromLiteral({
-  "aze":metahex
+  "":metahex
 });
 
 const store = {

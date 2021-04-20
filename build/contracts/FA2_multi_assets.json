@@ -8,7 +8,15 @@
     "name": "ligo",
     "version": "next"
   },
-  "networks": {},
+  "networks": {
+    "NetXnuwTfg9Box8": {
+      "events": {},
+      "links": {},
+      "address": "KT1TWDXniYjEkX8h5m5KEtmrJ5kAh9v7t1VM",
+      "transactionHash": "ooPrxx1S1r3phiiWmx3e96p8YfJwwmFrwPhaiQaM74CURwsb5Rb"
+    }
+  },
   "schemaVersion": "3.2.0-tezos.1",
-  "updatedAt": "2021-04-20T12:39:50.277Z"
+  "updatedAt": "2021-04-20T14:07:48.294Z",
+  "networkType": "tezos"
 }

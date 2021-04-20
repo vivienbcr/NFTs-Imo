@@ -10,5 +10,6 @@
   },
   "networks": {},
   "schemaVersion": "3.2.0-tezos.1",
-  "updatedAt": "2021-04-20T12:39:50.290Z"
+  "updatedAt": "2021-04-20T14:07:48.296Z",
+  "networkType": "tezos"
 }
