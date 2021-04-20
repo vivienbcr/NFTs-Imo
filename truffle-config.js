@@ -1,5 +1,5 @@
 const { alice } = require('./scripts/sandbox/accounts');
-// const { mnemonic, secret, password, email } = require("./faucet.json");
+const { mnemonic, secret, password, email } = require("./faucet.json");
 module.exports = {
   // see <http://truffleframework.com/docs/advanced/configuration>
   // for more details on how to specify configuration options!
@@ -13,16 +13,16 @@ module.exports = {
       secretKey:"edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq",
       type:"tezos"
     },
-    // edonet: {
-    //   host: "https://api.tez.ie/rpc/edonet",
-    //   port: 443,
-    //   network_id: "*",
-    //   secret,
-    //   mnemonic,
-    //   password,
-    //   email,
-    //   type: "tezos"
-    // },
+    edonet: {
+      host: "https://api.tez.ie/rpc/edonet",
+      port: 443,
+      network_id: "*",
+      secret,
+      mnemonic,
+      password,
+      email,
+      type: "tezos"
+    },
     flextesa:{
       host: "http://localhost",
       port: 20000,

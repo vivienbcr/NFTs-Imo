@@ -1,0 +1,18 @@
+{
+  "assets": [
+    {
+      "asset": {
+        "name": "TezCasino",
+        "symbol":"TZCAS",
+        "decimals":8,
+        "description": "Token fungible",
+        "minter": "tz1e9HY1EYMVyUo2BrvAgmnCenqebK7DZynZ",
+        "creator": "vivienbcr@github",
+        "contributors":["vivienbcr"],
+        "publishers":["vivienbcr"],
+        "date":"2021-03-06T0:0:0+00:00"
+      }
+    }
+    
+  ]
+}
