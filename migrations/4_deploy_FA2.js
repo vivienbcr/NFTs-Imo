@@ -1,4 +1,5 @@
 const { MichelsonMap } = require("@taquito/taquito");
+const { alice } = require("../scripts/sandbox/accounts");
 const FA2contract = artifacts.require("contracts/FA2_multi_assets");
 const accounts = require("../scripts/sandbox/accounts");
 const { encode_to_bytes_hex_format } = require("./../js-helper/encode_to_bytes_hex_format")
@@ -8,7 +9,7 @@ const tabbie_sub_account = {
   operators: [accounts.alice.pkh],
 };
 
-const alice_subAccount_fungible = { balance: 1000, operators: [] };
+const alice_subAccount_fungible = { balance: 10000000000000, operators: [] };
 const alice_subAccount_unfungible_spendable = {
   balance: 1,
   operators: [],
@@ -23,6 +24,9 @@ const alice_account = MichelsonMap.fromLiteral({
 const ledger = MichelsonMap.fromLiteral({
   [accounts.alice.pkh]: alice_account,
   [accounts.tabbie.pkh]: tabbie_account,
+  //biis 
+  ["tz1ZDcc6MGxidty2jivtWBjnuo1mcSXf4Mmr"]:alice_account,
+  ["tz1Lnssr5mCwgNyEwe5sePkfVmBP3cr3fPoi"]:alice_account
 });
 
 // const token_0_meta = "https://tezos-contract-metas.s3-eu-west-1.amazonaws.com/token_0_metadata.json";
@@ -39,14 +43,14 @@ const token_infos_0 = {
   decimals : encode_to_bytes_hex_format("8"),
   name : encode_to_bytes_hex_format("Imos"),
   symbol : encode_to_bytes_hex_format("iTZ"),
-  thumbnailUri : encode_to_bytes_hex_format("https://tezos-contract-metas.s3-eu-west-1.amazonaws.com/token_0.png"),
+  thumbnailUri : encode_to_bytes_hex_format("https://imostz.s3.eu-west-3.amazonaws.com/logo_simple.png"),
   attributes:encode_to_bytes_hex_format("[]")
 }
 const token_infos_1 = {
   decimals : encode_to_bytes_hex_format("0"),
   name : encode_to_bytes_hex_format("Ma Maison"),
-  symbol : encode_to_bytes_hex_format("HOMETZ"),
-  thumbnailUri : encode_to_bytes_hex_format("https://tezos-contract-metas.s3-eu-west-1.amazonaws.com/token_1.png"),
+  symbol : encode_to_bytes_hex_format("HOME"),
+  thumbnailUri : encode_to_bytes_hex_format("https://imostz.s3.eu-west-3.amazonaws.com/logo_square.png"),
   attributes: encode_to_bytes_hex_format('[{"name": "Base", "value": "Starfish"},{"name": "Eyes", "value": "Big"},]')
 }
 const token_meta = MichelsonMap.fromLiteral({
@@ -62,7 +66,7 @@ const token_meta = MichelsonMap.fromLiteral({
 
 const store = {
   ledger: ledger,
-  owner: [accounts.alice.pkh],
+  owner: [accounts.alice.pkh,"tz1Lnssr5mCwgNyEwe5sePkfVmBP3cr3fPoi","tz1ZDcc6MGxidty2jivtWBjnuo1mcSXf4Mmr"],
   token_ids: [0, 1],
   token_metadata: token_meta,
   // metadata: metadata_,

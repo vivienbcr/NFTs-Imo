@@ -18,11 +18,11 @@
     "NetXSgo1ZT2DRUG": {
       "events": {},
       "links": {},
-      "address": "KT1KeFaBjoHuvgN13P2vbePGUxj732JoA8qr",
-      "transactionHash": "ooXfn6UTBHkuLm5q9AE5SYaTvmB7ZPxjCUuinT17vcQRewJKCrj"
+      "address": "KT1FA71Md3ZAZ8bh7KZtoSfRpvHfeu8y7ShJ",
+      "transactionHash": "oosr57KvZkpsJXXfk5JxX5A7N66tg3doThvjvXJ6yrbNavxqAX1"
     }
   },
   "schemaVersion": "3.2.0-tezos.1",
-  "updatedAt": "2021-04-21T14:40:41.786Z",
+  "updatedAt": "2021-04-21T15:35:10.686Z",
   "networkType": "tezos"
 }
