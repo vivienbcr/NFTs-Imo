@@ -57,7 +57,6 @@ export const postMint = async (req: Request, res: Response) => {
         [{"name": "Base", "value": "Starfish"},{"name": "Eyes", "value": "Big"},]'
         );
       }
-      console.log(tokenMetaKeys);
       tokenMetaKeys.forEach((key) => {
         if (key === "attributes") {
           encodedAttributes[key] = encode_to_bytes_hex_format(

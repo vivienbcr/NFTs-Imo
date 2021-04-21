@@ -103,7 +103,7 @@ block{
     var store_acc: storage;
     const mint_prams : mint_param)
     :storage is
-    
+
   block{
     const token_id:token_id = mint_prams.1.1.0;
 
@@ -204,22 +204,22 @@ block{
 //   destination : address;
 //   nb_signer : nat;
 // ];
-// (token_id  * (from * ( o*nbrsigner)))
+// (token_id  * (to_ * ( from_ * nbrsigner)))
   function create_proposal (const params : create_proposal_params; var store : storage): entrypoint is 
   block {
+    fail_on(params.0 = 0n,"FA2_TOKEN_ID_0_NOT_SUPPORT_PROPOSAL");
+    const acct : account = getAccount(params.1.1.0,store); 
+    const sub_acct : sub_account = getSubAccount(params.0,acct);
+    fail_on(sub_acct.balance = 0n,"FA2_INSUFISANT_BALANCE_PROPOSAL");
 
-    if  Tezos.source =/= params.1.0 or (not Set.mem(Tezos.source,store.owner)) then block {
-      const acct : account = getAccount(params.1.0,store); 
-
-      const sub_acct : sub_account = getSubAccount(params.0,acct);
-
+    if Tezos.source =/= params.1.1.0 and not Set.mem(Tezos.source,store.owner) then block{
       if not Set.mem(Tezos.source, sub_acct.operators) then failwith("FA2_FORBIDDEN_PROPOSAL") else skip;
     } else skip;
     
     if Big_map.mem(params.0, store.proposals) then failwith("FA2_EXISTING_PROPOSAL") else skip;
 
     const proposal : proposal = record [
-      from_= Tezos.source; 
+      from_= params.1.1.0; 
       to_ = params.1.0;
       signers = set [Tezos.source];
       nb_signer = params.1.1.1;
