@@ -143,4 +143,10 @@ type sign_proposal_params_ is record [
 ];
 type sign_proposal_params is michelson_pair_right_comb(sign_proposal_params_);
 
+type remove_proposal_params_ is record [
+  token_id : nat ;
+  from_ : address ;
+]
+
+type remove_proposal_params is michelson_pair_right_comb(remove_proposal_params_);
 #endif

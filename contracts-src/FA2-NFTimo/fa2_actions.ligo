@@ -10,6 +10,7 @@ type fa2_utils_entry_points is
 | SetContractAccount of operator_param
 | CreateProposal of create_proposal_params
 | SignProposal of sign_proposal_params
+| RemoveProposal of remove_proposal_params
 
 type fa2_entry_points is
   Transfer                of transfer_params

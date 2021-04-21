@@ -171,7 +171,6 @@ block{
   }else block{
     store := store with record [ operators_contracts = Set.add(params,store.operators_contracts) ] ;  
   }
-
 }with ((nil: list(operation)), store)
 
 (* Entrypoint - set_contract_account   
@@ -241,6 +240,21 @@ block {
   store := store with record [proposals = Big_map.update(params.0, Some(myProposal), store.proposals)];
 }with ((nil: list(operation)), store);
 
+function remove_proposal(const params : remove_proposal_params; var store : storage): entrypoint is
+block{
+    if  Tezos.source =/= params.1 or (not Set.mem(Tezos.source,store.owner)) then block {
+      const acct : account = getAccount(params.1,store); 
+
+      const sub_acct : sub_account = getSubAccount(params.0,acct);
+
+      if not Set.mem(Tezos.source, sub_acct.operators) then failwith("FA2_REMOVE_PROPOSAL_NOT_OPERATOR") else skip;
+    } else skip;
+  if not Big_map.mem(params.0,store.proposals) then failwith("FA2_NO_PROPOSAL")else skip;
+  store := store with record [ proposals  = Big_map.remove(params.0,store.proposals)];
+}with ((nil: list(operation)), store);
+
+
+
 (* Main *)
 function fa2_hooks( const action : fa2_hooks_entry_points; const store  : storage) : entrypoint is
     case action of
@@ -255,6 +269,7 @@ function fa2_utils( const action : fa2_utils_entry_points; const store  : storag
     | SetContractAccount        (params) -> set_contract_account (params, store)
     | CreateProposal            (params) -> create_proposal (params, store)
     | SignProposal              (params) -> sign_proposal (params, store)
+    | RemoveProposal            (params) -> remove_proposal(params,store)
     end
 
 function fa2_main( const action : fa2_entry_points; const store  : storage) : entrypoint is 
