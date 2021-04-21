@@ -91,6 +91,7 @@ function update_operators_action( const parameters : update_operator_params; var
 (* Entrypoint - Mint  
 | Mint new Token fungible or non fungible
 | Restricted to contract owners *)
+
 function mint(const params : mint_params; var store: storage):entrypoint is
 block{
   verifyContractOwner(Tezos.source,store);
@@ -114,8 +115,8 @@ block{
         if Set.mem(token_id,store_acc.token_ids) then failwith("FA2_NFT_EXIST") else skip;
         store_acc := store_acc with record [ token_ids = Set.add(token_id,store_acc.token_ids) ];
 
-        const map_info : info_map = Map.literal(list[(("":string),(mint_prams.1.1.1))]);
-        var n_token_info : token_info := record [ token_id = token_id; token_info = map_info];
+        // const map_info : info_map = Map.literal(list[(("":string),(mint_prams.1.1.1))]);
+        var n_token_info : token_info := record [ token_id = token_id; token_info = mint_prams.1.1.1];
 
         store_acc := store_acc with record [token_metadata = Big_map.update(token_id,Some(n_token_info),store_acc.token_metadata)];
 

@@ -107,7 +107,7 @@ type mint_param_ is record
   to_    : address
 ; amount : nat
 ; token_id : nat
-; token_meta : bytes
+; token_meta : token_info_
 end
 
 type burn_params_ is record

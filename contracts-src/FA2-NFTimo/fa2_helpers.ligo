@@ -92,8 +92,8 @@ block {
           | None -> (failwith("FA2_TRANSFER_NO_PROPOSAL"): proposal)
           | Some(value)-> value
           end;
-        function sum (const acc : nat; const i : address): nat is acc + 1n;
-        const set_len : nat = Set.fold(sum,proposal.signers,0n);
+        // function sum (const acc : nat; const i : address): nat is acc + 1n;
+        const set_len : nat = Set.size(proposal.signers);
         if set_len <= proposal.nb_signer then failwith("FA2_PROPOSAL_NOT_APPROUVED")else skip;
 
         const n_from_sub_acct : sub_account = from_sub_acct with record [balance = 0n];

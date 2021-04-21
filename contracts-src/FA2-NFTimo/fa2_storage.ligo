@@ -13,10 +13,13 @@ type sub_account is record [
 type account is map(token_id,sub_account)
 
 type ledger is big_map(address,account)
-type info_map is map(string,bytes)
+// type info_map is map(string,bytes)
+
+type token_info_ is map( string, bytes)
+
 type token_info is record[
   token_id : nat;
-  token_info : info_map
+  token_info : token_info_
 ]
 type proposal is record [
   to_ : address;
@@ -30,7 +33,7 @@ type storage is record [
   owner               : set(address);
   token_ids           : set(token_id);
   token_metadata      : big_map(nat,token_info);
-  metadata            : big_map(string,bytes);
+  // metadata            : big_map(string,bytes);
   operators_contracts : set(address);
   proposals           : big_map(token_id, proposal);
 
