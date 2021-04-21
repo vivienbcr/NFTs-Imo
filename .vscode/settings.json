@@ -3,5 +3,7 @@
         "activityBar.background": "#0E3330",
         "titleBar.activeBackground": "#144743",
         "titleBar.activeForeground": "#F3FCFB"
-    }
+    },
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": true
 }

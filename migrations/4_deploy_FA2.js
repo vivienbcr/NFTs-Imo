@@ -19,6 +19,7 @@ const tabbie_account = MichelsonMap.fromLiteral({ 0: tabbie_sub_account });
 const alice_account = MichelsonMap.fromLiteral({
   0: alice_subAccount_fungible,
   1: alice_subAccount_unfungible_spendable,
+
 });
 
 const ledger = MichelsonMap.fromLiteral({

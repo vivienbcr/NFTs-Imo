@@ -12,8 +12,8 @@
     "NetXnuwTfg9Box8": {
       "events": {},
       "links": {},
-      "address": "KT1RZvJnprxoP2Z8weaDWfB89rNH6cmDstMV",
-      "transactionHash": "opRnx7ZmkJ5LcptRjsGeSzCxeoAKXdjeF83kg2RrbA563eQZsJD"
+      "address": "KT1UfNu8wJfZ73tnSzfzv2hBTVCHHSg9CT9K",
+      "transactionHash": "opS3N7P29jMoewxZ3dhZFMwpDtWReKvUM2m7CS22CzG96AwJ2fZ"
     },
     "NetXSgo1ZT2DRUG": {
       "events": {},
@@ -23,6 +23,6 @@
     }
   },
   "schemaVersion": "3.2.0-tezos.1",
-  "updatedAt": "2021-04-21T15:35:10.686Z",
+  "updatedAt": "2021-04-21T18:34:55.128Z",
   "networkType": "tezos"
 }

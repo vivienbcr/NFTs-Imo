@@ -92,11 +92,18 @@ function update_operators_action( const parameters : update_operator_params; var
 | Mint new Token fungible or non fungible
 | Restricted to contract owners *)
 
-function mint(const params : mint_params; var store: storage):entrypoint is
+function mint(
+  const params : mint_params;
+  var store: storage)
+  :entrypoint is
 block{
   verifyContractOwner(Tezos.source,store);
 
-  function mint_operation(var store_acc: storage; const mint_prams : mint_param):storage is
+  function mint_operation(
+    var store_acc: storage;
+    const mint_prams : mint_param)
+    :storage is
+    
   block{
     const token_id:token_id = mint_prams.1.1.0;
 
