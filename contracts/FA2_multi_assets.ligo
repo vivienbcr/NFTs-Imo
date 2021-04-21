@@ -144,12 +144,16 @@ block{
   // Sender is owner
   verifyContractOwner(Tezos.source,store);
   // Burn address is controlled address
-  verifyContractOwner(params.to_, store);
+  // verifyContractOwner(params.to_, store);
   var to_acct : account := getAccount(params.to_, store);
-  const to_sub_acct : sub_account = getSubAccount(0n,to_acct);
+  var to_sub_acct : sub_account := getSubAccount(params.token_id,to_acct);
   if to_sub_acct.balance < params.amount then failwith("FA2_INSUFFICIENT_BALANCE") else skip;
-  const n_to_sub_acct : sub_account = to_sub_acct with record [balance = abs(to_sub_acct.balance - params.amount)];
-  to_acct := Map.update((0n), Some(n_to_sub_acct), to_acct);
+  if params.token_id = default_token_id then block{
+    to_sub_acct := to_sub_acct with record [balance = abs(to_sub_acct.balance - params.amount)];
+  }else{
+    to_sub_acct := to_sub_acct with record [balance = abs(to_sub_acct.balance - 1n)];
+  };
+  to_acct := Map.update(params.token_id, Some(to_sub_acct), to_acct);
   var  updated_ledger : ledger := Big_map.update((params.to_), Some(to_acct), store.ledger);
   store := store with record [ ledger = updated_ledger ] ;
   

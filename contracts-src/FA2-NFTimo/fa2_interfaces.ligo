@@ -113,6 +113,7 @@ end
 type burn_params_ is record
   to_ : address
 ; amount: nat
+; token_id : nat
 end
 
 type mint_param is michelson_pair_right_comb (mint_param_)
