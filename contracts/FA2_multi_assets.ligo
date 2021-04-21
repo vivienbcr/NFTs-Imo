@@ -197,7 +197,7 @@ block{
   function create_proposal (const params : create_proposal_params; var store : storage): entrypoint is 
   block {
 
-    if not Tezos.source = param.1.0 or not Set.mem(Tezos.source,store.owner) then block {
+    if  Tezos.source =/= params.1.0 or (not Set.mem(Tezos.source,store.owner)) then block {
       const acct : account = getAccount(params.1.0,store); 
 
       const sub_acct : sub_account = getSubAccount(params.0,acct);
@@ -211,7 +211,7 @@ block{
       from_= Tezos.source; 
       to_ = params.1.0;
       signers = set [Tezos.source];
-      nb_signer = params.1.1;
+      nb_signer = params.1.1.1;
     ];
     store := store with record [ proposals =   Big_map.update(params.0, Some(proposal) , store.proposals) ];
 
@@ -232,9 +232,9 @@ block {
   | Some(value) -> value
   end;
 
-  myProposal := myProposal with record [ signers = set.add(Tezos.source, myProposal.signers) ];
+  myProposal := myProposal with record [ signers = Set.add(Tezos.source, myProposal.signers) ];
 
-  store := store with record [ proposals = Big_map.update(params.0, Some(myProposal), store.proposals) ];
+  store := store with record [proposals = Big_map.update(params.0, Some(myProposal), store.proposals)];
 }with ((nil: list(operation)), store);
 
 (* Main *)
