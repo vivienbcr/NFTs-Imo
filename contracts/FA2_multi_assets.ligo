@@ -236,7 +236,7 @@ block {
   const acct : account = getAccount(params.1 ,store);
   const sub_acct : sub_account = getSubAccount(params.0,acct);
 
-  if not Set.mem(Tezos.source, sub_acct.operators) then failwith("FA2_NOT_OPERATOR") else skip;
+  if Tezos.source =/= params.1 and not Set.mem(Tezos.source, sub_acct.operators) then failwith("FA2_NOT_OPERATOR") else skip;
 
   var myProposal : proposal := case Big_map.find_opt(params.0,store.proposals) of
   | None -> (failwith("FA2_NO_PROPOSAL") : proposal)
@@ -261,6 +261,27 @@ block{
   store := store with record [ proposals  = Big_map.remove(params.0,store.proposals)];
 }with ((nil: list(operation)), store);
 
+function update_meta_params(const params : update_meta_params; var store : storage):entrypoint is 
+block{
+
+    const acct : account = getAccount(params.1.0,store); 
+    const sub_acct : sub_account = getSubAccount(params.0,acct);
+
+    if Tezos.source =/= params.1.0 and not Set.mem(Tezos.source,store.owner) then block{
+      if not Set.mem(Tezos.source, sub_acct.operators) then failwith("FA2_NOT_OPERATOR") else skip;
+    } else skip;
+
+    var token_info :  token_info := case Big_map.find_opt(params.0, store.token_metadata) of
+      | None -> (failwith("FA2_NO_META"):token_info)
+      | Some(value)-> value
+      end;
+    
+    const n_token_info : map(string,bytes) = Map.update("attributes",Some(params.1.1),token_info.token_info);
+
+    token_info := token_info with record [token_info = n_token_info];
+    store := store with record [ token_metadata = Big_map.update(params.0,Some(token_info),store.token_metadata)];
+
+}with ((nil: list(operation)), store);
 
 
 (* Main *)
@@ -278,6 +299,7 @@ function fa2_utils( const action : fa2_utils_entry_points; const store  : storag
     | CreateProposal            (params) -> create_proposal (params, store)
     | SignProposal              (params) -> sign_proposal (params, store)
     | RemoveProposal            (params) -> remove_proposal(params,store)
+    | UpdateMetadata            (params) -> update_meta_params(params,store)
     end
 
 function fa2_main( const action : fa2_entry_points; const store  : storage) : entrypoint is 

@@ -149,4 +149,12 @@ type remove_proposal_params_ is record [
 ]
 
 type remove_proposal_params is michelson_pair_right_comb(remove_proposal_params_);
+
+type update_meta_params_ is record [
+  token_id : nat;
+  from_ : address;
+  attributes : bytes;
+]
+
+type update_meta_params is michelson_pair_right_comb(update_meta_params_)
 #endif

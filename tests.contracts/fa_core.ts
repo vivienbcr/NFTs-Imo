@@ -143,6 +143,40 @@ describe("TestFA2", async () => {
       "Stella account not credited"
     );
   });
+  it("Bob try to edit metadata", async () => {
+    const contract = await bob_account.contract.at(FA2_CONTRACT_ADDR);
+
+    const attributes = [
+      { name: "surface", value: 280 },
+      { name: "pieces", value: 9 },
+      { name: "dpe", value: 207 },
+      { name: "ges", value: 6 },
+      { name: "price", value: 183000 },
+    ];
+    const params = {
+      token_id: 666,
+      from_: await bob_account.signer.publicKeyHash(),
+      attributes: encode_to_bytes_hex_format(JSON.stringify(attributes)),
+    };
+    const operation = await contract.methods
+      .updateMetadata(params.token_id, params.from_, params.attributes)
+      .send();
+
+    await operation.confirmation(1);
+
+    const FA2_storage: any = await contract.storage();
+    const tokenmeta = await FA2_storage.token_metadata.get("666");
+    const str: string = await tokenmeta.token_info.get("attributes");
+    const decoded = JSON.parse(Buffer.from(str, "hex").toString());
+    assert.equal(decoded[0].name, attributes[0].name, "Wrong attributes");
+    assert.equal(decoded[0].value, attributes[0].value, "Wrong attributes");
+    assert.equal(decoded[1].name, attributes[1].name, "Wrong attributes");
+    assert.equal(decoded[1].value, attributes[1].value, "Wrong attributes");
+    assert.equal(decoded[2].name, attributes[2].name, "Wrong attributes");
+    assert.equal(decoded[2].value, attributes[2].value, "Wrong attributes");
+    assert.equal(decoded[3].name, attributes[3].name, "Wrong attributes");
+    assert.equal(decoded[3].value, attributes[3].value, "Wrong attributes");
+  });
 
   it("Bob Set operators", async () => {
     const contract = await bob_account.contract.at(FA2_CONTRACT_ADDR);

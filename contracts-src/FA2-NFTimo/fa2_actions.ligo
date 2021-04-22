@@ -11,6 +11,7 @@ type fa2_utils_entry_points is
 | CreateProposal of create_proposal_params
 | SignProposal of sign_proposal_params
 | RemoveProposal of remove_proposal_params
+| UpdateMetadata of update_meta_params
 
 type fa2_entry_points is
   Transfer                of transfer_params
