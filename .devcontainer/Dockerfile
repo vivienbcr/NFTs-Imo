@@ -15,9 +15,9 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor
 
 RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-RUN  sudo apt-get update && sudo apt-get --assume-yes install docker-ce docker-ce-cli containerd.io
+# RUN  sudo apt-get update && sudo apt-get --assume-yes install docker-ce docker-ce-cli containerd.io
 
-RUN docker run --privileged -d docker:dind
+# RUN docker run --privileged -d docker:dind
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \

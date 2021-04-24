@@ -224,7 +224,8 @@ block{
       signers = set [Tezos.source];
       nb_signer = params.1.1.1;
     ];
-    store := store with record [ proposals =   Big_map.update(params.0, Some(proposal) , store.proposals) ];
+    // 
+    store := store with record [ proposals =   Big_map.update(params.0, Some(proposal) , store.proposals); open_proposals = Set.add(params.0,store.open_proposals) ];
 
   }with ((nil: list(operation)), store)
 
@@ -258,7 +259,7 @@ block{
       if not Set.mem(Tezos.source, sub_acct.operators) then failwith("FA2_REMOVE_PROPOSAL_NOT_OPERATOR") else skip;
     } else skip;
   if not Big_map.mem(params.0,store.proposals) then failwith("FA2_NO_PROPOSAL")else skip;
-  store := store with record [ proposals  = Big_map.remove(params.0,store.proposals)];
+  store := store with record [ proposals  = Big_map.remove(params.0,store.proposals);open_proposals = Set.remove(params.0,store.open_proposals)];
 }with ((nil: list(operation)), store);
 
 function update_meta_params(const params : update_meta_params; var store : storage):entrypoint is 

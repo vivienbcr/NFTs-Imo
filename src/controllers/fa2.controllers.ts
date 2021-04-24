@@ -30,7 +30,7 @@ export const emulateProposal = async (req: Request, res: Response) => {
           owner: await tz_acct.signer.publicKeyHash(),
           operator: {
             operator: await bob_account.signer.publicKeyHash(),
-            token_id: 1,
+            token_id: 2,
           },
         },
       },
@@ -39,7 +39,7 @@ export const emulateProposal = async (req: Request, res: Response) => {
           owner: await tz_acct.signer.publicKeyHash(),
           operator: {
             operator: await mallory_account.signer.publicKeyHash(),
-            token_id: 1,
+            token_id: 2,
           },
         },
       },
@@ -54,7 +54,7 @@ export const emulateProposal = async (req: Request, res: Response) => {
     const add_op_hash = await operation_add_op.confirmation(1);
 
     const params: any = {
-      token_id: 1,
+      token_id: 2,
       to_: await stella_account.signer.publicKeyHash(),
       from_: await tz_acct.signer.publicKeyHash(),
       nb_signer: 3,

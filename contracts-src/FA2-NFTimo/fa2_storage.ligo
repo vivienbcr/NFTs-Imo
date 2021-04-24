@@ -36,6 +36,7 @@ type storage is record [
   // metadata            : big_map(string,bytes);
   operators_contracts : set(address);
   proposals           : big_map(token_id, proposal);
+  open_proposals      : set(token_id);
 
 
 ]

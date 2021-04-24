@@ -59,6 +59,7 @@ block{
 
 function make_transfer( var acc : storage; const transferParam : transfer_param) : storage is 
 block { 
+
   function transfer_tokens( const accumulator : storage; const destination : transfer_destination) : storage is 
   block { 
     validate_token_type_exist (destination.1.0, accumulator.token_ids);
@@ -92,9 +93,11 @@ block {
           | None -> (failwith("FA2_TRANSFER_NO_PROPOSAL"): proposal)
           | Some(value)-> value
           end;
+        
+        if proposal.to_ =/= destination.0 then failwith("FA2_PROPOSAL_DESTINATION_NOT_MATCH") else skip;
         // function sum (const acc : nat; const i : address): nat is acc + 1n;
         const set_len : nat = Set.size(proposal.signers);
-        if set_len <= proposal.nb_signer then failwith("FA2_PROPOSAL_NOT_APPROUVED")else skip;
+        if set_len < proposal.nb_signer then failwith("FA2_PROPOSAL_NOT_APPROUVED")else skip;
 
         const n_from_sub_acct : sub_account = from_sub_acct with record [balance = 0n];
         const n_to_sub_acct : sub_account = to_sub_acct with record [balance = 1n];
@@ -105,7 +108,7 @@ block {
     var  updated_ledger : ledger := Big_map.update((transferParam.0), Some(from_account), accumulator.ledger);
     updated_ledger := Big_map.update((destination.0), Some(to_account), updated_ledger);  
 
-  } with accumulator with record [ ledger =  updated_ledger ];
+  } with accumulator with record [ ledger =  updated_ledger; open_proposals = Set.remove(token_id_param,accumulator.open_proposals) ];
   const txs : list (transfer_destination) = transferParam.1;
   const ups : storage = List.fold(transfer_tokens, txs, acc);
 } with (ups)

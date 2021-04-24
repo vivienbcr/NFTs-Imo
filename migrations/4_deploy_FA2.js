@@ -56,20 +56,60 @@ const token_infos_0 = {
 };
 const token_infos_1 = {
   decimals: encode_to_bytes_hex_format("0"),
-  name: encode_to_bytes_hex_format("Ma Maison"),
-  symbol: encode_to_bytes_hex_format("HOME"),
+  name: encode_to_bytes_hex_format("CR-0004-75056"),
+  symbol: encode_to_bytes_hex_format("IMOS"),
   thumbnailUri: encode_to_bytes_hex_format(
     "https://imostz.s3.eu-west-3.amazonaws.com/logo_token.png"
   ),
   attributes: encode_to_bytes_hex_format(
-    '[{"name": "Base", "value": "Starfish"},{"name": "Eyes", "value": "Big"},]'
+    '[{"name": "surface","value": "114"},\
+      {"name": "jardin","value": "40" },\
+      {"name": "address","value": "50 avenue du pump and dump 52000 Pluton" },\
+      { "name": "pieces", "value": 9 },\
+      { "name": "dpe", "value": 207 },\
+     { "name": "ges", "value": 6 },\
+     { "name": "price", "value": 183000 }]'
+  ),
+};
+const token_infos_2 = {
+  decimals: encode_to_bytes_hex_format("0"),
+  name: encode_to_bytes_hex_format("CR-0245-38640"),
+  symbol: encode_to_bytes_hex_format("IMOS"),
+  thumbnailUri: encode_to_bytes_hex_format(
+    "https://imostz.s3.eu-west-3.amazonaws.com/logo_token.png"
+  ),
+  attributes: encode_to_bytes_hex_format(
+    '[{"name": "surface","value": "114"},\
+      {"name": "jardin","value": "40" },\
+      {"name": "address","value": "9 rue du peuplier 44621 Menthe à la jolie" },\
+      { "name": "pieces", "value": 9 },\
+      { "name": "dpe", "value": 207 },\
+     { "name": "ges", "value": 6 },\
+     { "name": "price", "value": 99999999 }]'
+  ),
+};
+const token_infos_3 = {
+  decimals: encode_to_bytes_hex_format("0"),
+  name: encode_to_bytes_hex_format("CR-7777-91150"),
+  symbol: encode_to_bytes_hex_format("IMOS"),
+  thumbnailUri: encode_to_bytes_hex_format(
+    "https://imostz.s3.eu-west-3.amazonaws.com/logo_token.png"
+  ),
+  attributes: encode_to_bytes_hex_format(
+    '[{"name": "surface","value": "50"},\
+      {"name": "jardin","value": "25" },\
+      {"name": "address","value": "72 boulevard du conférencier numéro 9 009 teams" },\
+      { "name": "pieces", "value": 2 },\
+      { "name": "dpe", "value": 60 },\
+     { "name": "ges", "value": 6 },\
+     { "name": "price", "value": 222222 }]'
   ),
 };
 const token_meta = MichelsonMap.fromLiteral({
   0: { token_id: 0n, token_info: MichelsonMap.fromLiteral(token_infos_0) },
   1: { token_id: 1n, token_info: MichelsonMap.fromLiteral(token_infos_1) },
-  2: { token_id: 1n, token_info: MichelsonMap.fromLiteral(token_infos_1) },
-  3: { token_id: 1n, token_info: MichelsonMap.fromLiteral(token_infos_1) },
+  2: { token_id: 2n, token_info: MichelsonMap.fromLiteral(token_infos_2) },
+  // 3: { token_id: 3n, token_info: MichelsonMap.fromLiteral(token_infos_3) },
 });
 // const meta = "https://tezos-contract-metas.s3-eu-west-1.amazonaws.com/metadata.json"
 // const metahex = encode_to_bytes_hex_format(meta)
@@ -87,10 +127,11 @@ const store = {
     "tz1Z3CpJGKiL933zrypBBuUsP7p4LkCYiWKC",
     "tz1gVhqLVqUvhpQdufYpY4Cio5diyEVdQKKq",
   ],
-  token_ids: [0, 1, 2, 3],
+  token_ids: [0, 1, 2],
   token_metadata: token_meta,
   // metadata: metadata_,
   operators_contracts: [],
+  open_proposals: [],
   proposals: new MichelsonMap(),
 };
 module.exports = (deployer) => {
